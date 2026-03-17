@@ -25,7 +25,52 @@ class Tree {
 
     }
 
-    includes(value){
-        
+    includes(value) {
+    let current = this.root; // start at the root
+
+    while (current) {
+        if (current.value === value) {
+            return true; // found it
+        }
+
+        if (value < current.value) {
+            current = current.left; // move left
+        } else {
+            current = current.right; // move right
+        }
     }
+
+    return false; 
+}
+
+insert(value) {
+    const newNode = new Node(value);
+
+    if (!this.root) {
+        this.root = newNode; // empty tree
+        return;
+    }
+
+    let current = this.root;
+
+    while (current) {
+        if (value === current.value) {
+            return; // do nothing if value exists
+        }
+
+        if (value < current.value) {
+            if (!current.left) {
+                current.left = newNode; // insert here
+                return;
+            }
+            current = current.left; // move left
+        } else {
+            if (!current.right) {
+                current.right = newNode; // insert here
+                return;
+            }
+            current = current.right; // move right
+        }
+    }
+  }
 }

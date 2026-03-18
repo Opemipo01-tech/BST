@@ -113,4 +113,31 @@ deleteItem(value, node = this.root) {
     return node;
 }
 
+levelOrderForEach(callback) {
+    // Throw an error if no callback function is provided
+    if (!callback) {
+        throw new Error("A callback is required");
+    }
+
+    // Create a queue to keep track of nodes to visit
+    const queue = [];
+
+    // Start with the root node (if it exists)
+    if (this.root) queue.push(this.root);
+
+    // Loop until there are no more nodes in the queue
+    while (queue.length > 0) {
+        // Remove the first node from the queue (FIFO)
+        const current = queue.shift();
+
+        // Call the callback function with the current node's value
+        callback(current.value);
+
+        // If the current node has a left child, add it to the queue
+        if (current.left) queue.push(current.left);
+
+        // If the current node has a right child, add it to the queue
+        if (current.right) queue.push(current.right);
+    }
+   }
   }

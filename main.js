@@ -140,4 +140,78 @@ levelOrderForEach(callback) {
         if (current.right) queue.push(current.right);
     }
    }
+   
+   preOrderForEach(callback) {
+  if (!callback) {
+      throw new Error("A callback is required");
+  }
+
+  function traverse(node) {
+      if (node === null) {
+          return; 
+          // Stop if the node is empty
+      }
+
+      // First, visit the current node
+      callback(node.value);
+      
+      // Then, visit the left child
+      traverse(node.left);
+
+      // Finally, visit the right child
+      traverse(node.right);
+  }
+
+  // Start the traversal from the root
+  traverse(this.root);
+ }
+   inOrderForEach(callback) {
+    if (!callback) {
+        throw new Error("A callback is required");
+    }
+
+    function traverse(node) {
+        if (node === null) {
+            return; 
+            // Stop if the node is empty
+        }
+
+        // First, visit the left child
+        traverse(node.left);
+
+        // Then, visit the current node
+        callback(node.value);
+
+        // Finally, visit the right child
+        traverse(node.right);
+    }
+
+    // Start the traversal from the root
+    traverse(this.root);
+   }
+
+     postOrderForEach(callback) {
+    if (!callback) {
+        throw new Error("A callback is required");
+    }
+
+    function traverse(node) {
+        if (node === null) {
+            return; 
+            // Stop if the node is empty
+        }
+
+        // First, visit the left child
+        traverse(node.left);
+
+        // Then, visit the right child
+        traverse(node.right);
+        
+        // Finally, visit the current node
+        callback(node.value);
+    }
+
+    // Start the traversal from the root
+    traverse(this.root);
+   }
   }

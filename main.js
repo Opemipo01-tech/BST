@@ -214,4 +214,50 @@ levelOrderForEach(callback) {
     // Start the traversal from the root
     traverse(this.root);
    }
+
+   height(value) {
+    if (!this.root) return undefined;
+
+    let current = this.root;
+    while (current) {
+        if (value === current.value) break;
+        else if (value < current.value) current = current.left;
+        else current = current.right;
+    }
+    if (!current) return undefined;
+
+    let maxHeight = 0;
+    const stack = [{ node: current, height: 0 }];
+
+    while (stack.length > 0) {
+        const { node, height } = stack.pop();
+        if (height > maxHeight) maxHeight = height;
+        if (node.left) stack.push({ node: node.left, height: height + 1 });
+        if (node.right) stack.push({ node: node.right, height: height + 1 });
+    }
+
+    return maxHeight;
+}
+
+ depth(value) {
+    if (!this.root) return undefined; // Tree is empty
+
+    let depth = 0; 
+    let current = this.root;
+
+    while (current) {
+        if (value < current.value) {
+            depth++;
+            current = current.left;
+        } else if (value > current.value) {
+            depth++;
+            current = current.right;
+        } else { // value === current.value
+            return depth;
+        }
+    }
+
+    // Value not found
+    return undefined;
+}
   }

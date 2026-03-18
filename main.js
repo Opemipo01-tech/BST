@@ -73,4 +73,44 @@ insert(value) {
         }
     }
   }
+
+deleteItem(value, node = this.root) {
+    // If node is null, value not found → do nothing
+    if (!node) return null;
+
+    // Traverse left if value is smaller
+    if (value < node.value) {
+        node.left = this.deleteItem(value, node.left);
+    } 
+    // Traverse right if value is greater
+    else if (value > node.value) {
+        node.right = this.deleteItem(value, node.right);
+    } 
+    // Node found
+    else {
+        // Case 1: No children (leaf node)
+        if (!node.left && !node.right) return null;
+
+        // Case 2: One child
+        if (!node.left) return node.right; // only right child
+        if (!node.right) return node.left; // only left child
+
+        // Case 3: Two children
+        // Find smallest node in right subtree (in-order successor)
+        let successor = node.right;
+        while (successor.left) {
+            successor = successor.left;
+        }
+
+        // Replace current node value with successor value
+        node.value = successor.value;
+
+        // Delete the successor node from right subtree
+        node.right = this.deleteItem(successor.value, node.right);
+    }
+
+    // Return updated node
+    return node;
 }
+
+  }

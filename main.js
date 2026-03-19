@@ -1,3 +1,5 @@
+const { array } = require("yargs");
+
 class Node {
     constructor(value,left = null, right = null){
         this.value = value;
@@ -260,4 +262,43 @@ levelOrderForEach(callback) {
     // Value not found
     return undefined;
 }
+
+isBalanced() {
+    // Helper function: returns height if balanced, false if not
+    function check(node) {
+        if (node === null) return 0; // empty tree has height 0
+
+        // Get height of left subtree
+        const leftHeight = check(node.left);
+        if (leftHeight === false) return false; // left is unbalanced
+
+        // Get height of right subtree
+        const rightHeight = check(node.right);
+        if (rightHeight === false) return false; // right is unbalanced
+
+        // Check difference in heights
+        if (Math.abs(leftHeight - rightHeight) > 1) return false; // current node unbalanced
+
+        // Return height of this node
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
+
+    // Start at root and check to return either true or false
+    return check(this.root) !== false;
+}
+   rebalance() {
+    //  Collect all values in sorted order
+    const values = [];
+    
+    // Use inOrderForEach traversal to fill the array
+    this.inOrderForEach(value => values.push(value));
+
+    //  Remove duplicates (optional) and ensure sorted array
+    const cleanValues = [...new Set(values)].sort((a, b) => a - b);
+
+    //  Rebuild the tree using buildTree
+    this.root = this.buildTree(cleanValues);
+} 
   }
+
+

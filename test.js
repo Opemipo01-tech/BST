@@ -1,5 +1,10 @@
 import { Tree } from "./main.js"
 
-const array = [10,20,30,44,50,60,77,22,11,66,33,88]
-const myTree = new Tree()
-myTree.buildTree(array);
+
+const array = [1,2,3,4,5,6,7,8,9,10]
+const myTree = new Tree(array)
+console.log(myTree.root);
+console.log(myTree.isBalanced());
+const values = []
+myTree.postOrderForEach(value => values.push(value))
+console.log(values)

@@ -1,5 +1,3 @@
-const { array } = require("yargs");
-
 class Node {
     constructor(value,left = null, right = null){
         this.value = value;
@@ -300,5 +298,7 @@ isBalanced() {
     this.root = this.buildTree(cleanValues);
 } 
   }
+
+export{Tree}
 
 
